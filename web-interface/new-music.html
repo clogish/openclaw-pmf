@@ -245,14 +245,14 @@
       left: 16px;
       right: 16px;
       height: 110px;
-      background: linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+      background: linear-gradient(0deg, var(--bg-page) 0%, transparent 100%);
       border-radius: 0 0 8px 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
       padding-bottom: 14px;
-      opacity: 0.15;
+      opacity: 0;
       transition: opacity 0.25s ease;
       pointer-events: all;
       z-index: 10;
@@ -263,7 +263,7 @@
     }
 
     .rating-overlay.has-rating {
-      opacity: 0.4;
+      opacity: 0.7;
     }
 
     .feed-item-embed:hover .rating-overlay.has-rating {
@@ -276,9 +276,10 @@
       align-items: center;
       gap: 6px;
       padding: 12px 16px;
-      background: rgba(0,0,0,0.85);
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
       border-radius: 10px;
-      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
 
     .rating-stars {
@@ -292,7 +293,7 @@
       font-size: 26px;
       cursor: pointer;
       transition: all 0.2s ease;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
       user-select: none;
       line-height: 1;
       display: flex;
@@ -301,7 +302,8 @@
     }
 
     .star.empty {
-      opacity: 0.3;
+      opacity: 0.4;
+      color: var(--text-secondary);
     }
 
     .star.filled {
@@ -310,13 +312,22 @@
     }
 
     .star.empty:hover,
-    .star.empty:hover ~ .star.empty {
-      opacity: 0.6;
-      transform: scale(1.1);
+    .star.filled:hover ~ .star.empty {
+      opacity: 0.7;
+      color: var(--text-primary);
     }
 
     .star:hover {
       transform: scale(1.15);
+    }
+
+    .rating-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+      font-family: var(--font-ui);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 500;
     }
 
     .rating-label {
