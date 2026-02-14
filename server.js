@@ -157,6 +157,61 @@ app.delete('/api/music-feed/:id', async (req, res) => {
   }
 });
 
+// POST bulk delete items by rating criteria
+app.post('/api/music-feed/bulk-delete', async (req, res) => {
+  try {
+    const { operator, rating } = req.body;
+
+    // Validate input
+    if (!operator || typeof rating !== 'number') {
+      return res.status(400).json({ error: 'operator and rating are required' });
+    }
+
+    const validOperators = ['eq', 'lt', 'lte', 'gt', 'gte'];
+    if (!validOperators.includes(operator)) {
+      return res.status(400).json({ error: 'operator must be one of: eq, lt, lte, gt, gte' });
+    }
+
+    if (rating < 0 || rating > 5) {
+      return res.status(400).json({ error: 'rating must be between 0 and 5' });
+    }
+
+    let items = [];
+    try {
+      const data = await fs.readFile(MUSIC_FEED, 'utf-8');
+      items = JSON.parse(data);
+    } catch (e) {
+      items = [];
+    }
+
+    // Filter items based on operator
+    const beforeCount = items.length;
+    items = items.filter(item => {
+      const itemRating = item.rating || 0;
+
+      switch (operator) {
+        case 'eq': return itemRating !== rating;
+        case 'lt': return itemRating >= rating;
+        case 'lte': return itemRating > rating;
+        case 'gt': return itemRating <= rating;
+        case 'gte': return itemRating < rating;
+        default: return true;
+      }
+    });
+
+    const deletedCount = beforeCount - items.length;
+    await fs.writeFile(MUSIC_FEED, JSON.stringify(items, null, 2));
+
+    res.json({
+      success: true,
+      deletedCount,
+      remainingCount: items.length
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ═══════════════════════════════════════════════════════════════
 // START SERVER
 // ═══════════════════════════════════════════════════════════════
@@ -169,10 +224,11 @@ app.listen(PORT, () => {
   console.log(`  🎧 Music Feed: http://localhost:${PORT}/new-music`);
   console.log('');
   console.log('  API Endpoints:');
-  console.log(`    GET    /api/music-feed            - List all items`);
-  console.log(`    POST   /api/music-feed            - Add new item`);
-  console.log(`    PUT    /api/music-feed/:id/rating - Rate item (1-5 stars)`);
-  console.log(`    DELETE /api/music-feed/:id        - Remove item`);
+  console.log(`    GET    /api/music-feed              - List all items`);
+  console.log(`    POST   /api/music-feed              - Add new item`);
+  console.log(`    PUT    /api/music-feed/:id/rating   - Rate item (1-5 stars)`);
+  console.log(`    DELETE /api/music-feed/:id          - Remove item`);
+  console.log(`    POST   /api/music-feed/bulk-delete  - Delete items by rating`);
   console.log('');
   console.log('  Scripts:');
   console.log('    node skill/music-feed/bandcamp-search.js "artist album"');

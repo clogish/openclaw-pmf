@@ -57,6 +57,7 @@ node skill/music-feed/add-direct-url.js "https://soundcloud.com/artist/track"
 | POST | `/api/music-feed` | Add a new item |
 | PUT | `/api/music-feed/:id/rating` | Rate an item (1-5 stars) |
 | DELETE | `/api/music-feed/:id` | Remove an item |
+| POST | `/api/music-feed/bulk-delete` | Delete items by rating criteria |
 
 ### Example: Add via API
 
@@ -80,6 +81,27 @@ curl -X PUT http://localhost:3456/api/music-feed/ITEM_ID/rating \
   -H "Content-Type: application/json" \
   -d '{"rating": 5}'
 ```
+
+### Example: Bulk delete by rating
+
+```bash
+# Delete all items rated 2 stars or lower
+curl -X POST http://localhost:3456/api/music-feed/bulk-delete \
+  -H "Content-Type: application/json" \
+  -d '{"operator": "lte", "rating": 2}'
+
+# Delete all unrated items
+curl -X POST http://localhost:3456/api/music-feed/bulk-delete \
+  -H "Content-Type: application/json" \
+  -d '{"operator": "eq", "rating": 0}'
+```
+
+**Operators:**
+- `eq` - equal to
+- `lt` - less than
+- `lte` - less than or equal to
+- `gt` - greater than
+- `gte` - greater than or equal to
 
 ## Development Workflow
 

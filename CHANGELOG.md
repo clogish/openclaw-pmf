@@ -14,6 +14,14 @@ All notable changes to this project will be documented in this file.
   - New API endpoint: `PUT /api/music-feed/:id/rating`
   - Stores `rating` (1-5) and `ratedAt` timestamp on each item
 
+- **Bulk Delete by Rating** - Clean up your feed based on ratings
+  - UI controls at top of feed for filtering and bulk operations
+  - Select operator (≤, <, =, ≥, >) and rating value (0-5 stars)
+  - Confirmation dialog shows exactly what will be deleted
+  - New API endpoint: `POST /api/music-feed/bulk-delete`
+  - Example: "Delete all items rated 2 or lower" removes low-rated music
+  - Unrated items (rating = 0) can also be bulk deleted
+
 ### Technical Details
 - Rating overlay positioned at bottom of embed with gradient backdrop
 - Compact design: stars (26px) and label in single container with backdrop blur

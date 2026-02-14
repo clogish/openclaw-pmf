@@ -12,6 +12,7 @@ Send an album cover, artist/album/track name, or URL — get a playable embed fe
 - **Direct URL support** — Paste any Bandcamp/YouTube/Soundcloud link
 - **Clean feed UI** — Vertical scroll, embedded players, delete when done
 - **5-star rating system** — Beautiful overlay on album art, hover to rate
+- **Bulk delete by rating** — Clean up feed: "delete everything rated 2 or lower"
 
 <!-- ## Quick Demo
 

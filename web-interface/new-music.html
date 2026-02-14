@@ -378,6 +378,65 @@
       color: var(--text-muted);
       font-family: var(--font-ui);
     }
+
+    /* ═══ FILTER CONTROLS ═══ */
+    .filter-controls {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-ui);
+      font-weight: 500;
+    }
+
+    .filter-select {
+      background: var(--bg-input);
+      border: 1px solid var(--border-input);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 6px 10px;
+      font-size: 12px;
+      font-family: var(--font-ui);
+      cursor: pointer;
+    }
+    .filter-select:focus { outline: none; border-color: var(--text-accent); }
+
+    .btn-filter {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-family: var(--font-ui);
+      cursor: pointer;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .btn-filter:hover { opacity: 0.85; }
+
+    .btn-bulk-delete {
+      background: var(--btn-danger-bg);
+      color: var(--btn-danger-text);
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-family: var(--font-ui);
+      cursor: pointer;
+      font-weight: 500;
+      transition: opacity 0.15s;
+      margin-left: auto;
+    }
+    .btn-bulk-delete:hover { opacity: 0.85; }
   </style>
 </head>
 <body>
@@ -394,6 +453,27 @@
         <option value="evening">🌙 Evening Editorial</option>
       </select>
     </div>
+  </div>
+
+  <div class="filter-controls">
+    <span class="filter-label">Delete items rated:</span>
+    <select class="filter-select" id="bulkOperator">
+      <option value="lte">≤ (less than or equal)</option>
+      <option value="lt">&lt; (less than)</option>
+      <option value="eq">= (equal to)</option>
+      <option value="gte">≥ (greater than or equal)</option>
+      <option value="gt">&gt; (greater than)</option>
+    </select>
+    <select class="filter-select" id="bulkRating">
+      <option value="0">0 stars (unrated)</option>
+      <option value="1">1 star</option>
+      <option value="2">2 stars</option>
+      <option value="3">3 stars</option>
+      <option value="4">4 stars</option>
+      <option value="5">5 stars</option>
+    </select>
+    <button class="btn-bulk-delete" onclick="bulkDelete()">🗑 Delete Matching</button>
+    <button class="btn-filter" onclick="loadFeed()">↻ Refresh</button>
   </div>
 
   <div class="feed" id="feed">
@@ -528,6 +608,45 @@
         }
       } catch (err) {
         console.error('Failed to rate:', err);
+      }
+    }
+
+    async function bulkDelete() {
+      const operator = document.getElementById('bulkOperator').value;
+      const rating = parseInt(document.getElementById('bulkRating').value);
+
+      // Build confirmation message
+      const opLabels = {
+        'lte': 'less than or equal to',
+        'lt': 'less than',
+        'eq': 'equal to',
+        'gte': 'greater than or equal to',
+        'gt': 'greater than'
+      };
+
+      const ratingLabel = rating === 0 ? 'unrated' : `${rating} star${rating !== 1 ? 's' : ''}`;
+      const message = `Delete all items rated ${opLabels[operator]} ${ratingLabel}?`;
+
+      if (!confirm(message)) return;
+
+      try {
+        const res = await fetch('/api/music-feed/bulk-delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ operator, rating })
+        });
+
+        if (res.ok) {
+          const result = await res.json();
+          alert(`Deleted ${result.deletedCount} item(s). ${result.remainingCount} remaining.`);
+          loadFeed();
+        } else {
+          const error = await res.json();
+          alert(`Error: ${error.error}`);
+        }
+      } catch (err) {
+        console.error('Failed to bulk delete:', err);
+        alert('Failed to delete items. See console for details.');
       }
     }
 
