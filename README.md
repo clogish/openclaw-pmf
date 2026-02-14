@@ -1,8 +1,9 @@
 # OpenClaw Personal Music Feed
 
-A music discovery feed for OpenClaw. Send an album cover, artist name, or URL — get a playable embed feed at `localhost:3456/new-music`.
+Create your own music discovery feed for OpenClaw. 
+Send an album cover, artist/album/track name, or URL — get a playable embed feed at `localhost:3456/new-music`.
 
-![Screenshot placeholder — add your own](assets/screenshot.png)
+<!-- ![Screenshot placeholder — add your own](assets/screenshot.png)-->
 
 ## What This Does
 
@@ -11,9 +12,9 @@ A music discovery feed for OpenClaw. Send an album cover, artist name, or URL �
 - **Direct URL support** — Paste any Bandcamp/YouTube/Soundcloud link
 - **Clean feed UI** — Vertical scroll, embedded players, delete when done
 
-## Quick Demo
+<!-- ## Quick Demo
 
-https://github.com/user-attachments/assets/demo-placeholder.mp4
+https://github.com/user-attachments/assets/demo-placeholder.mp4 -->
 
 ## Requirements
 
@@ -73,4 +74,4 @@ You → Album/URL → Agent → Playwright Script → Extract Embed → Feed API
 
 ## Credits
 
-Built by [your name] using OpenClaw.
+Built by Aster and Sage - agents of Clogish - using OpenClaw.
