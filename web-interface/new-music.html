@@ -12,9 +12,9 @@
 
     /* ═══ THEME VARIABLES ═══ */
     :root {
-      --font-heading: 'JetBrains Mono', monospace;
-      --font-body: 'JetBrains Mono', monospace;
-      --font-ui: 'JetBrains Mono', monospace;
+      --font-heading: 'Newsreader', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-ui: 'DM Sans', sans-serif;
       --bg-page: #12141c;
       --bg-header: #0d0f16;
       --bg-card: #1a1d28;
@@ -34,9 +34,9 @@
     }
 
     [data-theme="morning"] {
-      --font-heading: 'Playfair Display', serif;
-      --font-body: 'Source Serif 4', Georgia, serif;
-      --font-ui: 'JetBrains Mono', monospace;
+      --font-heading: 'Newsreader', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-ui: 'DM Sans', sans-serif;
       --bg-page: #f7f3ed;
       --bg-header: #ede8e0;
       --bg-card: #fff;
@@ -56,9 +56,9 @@
     }
 
     [data-theme="clean"] {
-      --font-heading: 'Inter', sans-serif;
-      --font-body: 'Inter', sans-serif;
-      --font-ui: 'Inter', sans-serif;
+      --font-heading: 'Newsreader', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-ui: 'DM Sans', sans-serif;
       --bg-page: #fafafa;
       --bg-header: #f0f0f0;
       --bg-card: #fff;
@@ -328,15 +328,6 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       font-weight: 500;
-    }
-
-    .rating-label {
-      font-size: 10px;
-      color: rgba(255,255,255,0.8);
-      font-family: var(--font-ui);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 500;
       transition: opacity 0.2s ease;
     }
 
@@ -396,9 +387,10 @@
       margin: 0 auto;
       padding: 20px 16px 0;
       display: flex;
-      gap: 12px;
+      gap: 8px;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
     }
 
     .filter-label {
@@ -406,6 +398,8 @@
       color: var(--text-secondary);
       font-family: var(--font-ui);
       font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .filter-select {
@@ -413,10 +407,11 @@
       border: 1px solid var(--border-input);
       border-radius: 6px;
       color: var(--text-primary);
-      padding: 6px 10px;
-      font-size: 12px;
+      padding: 6px 8px;
+      font-size: 11px;
       font-family: var(--font-ui);
       cursor: pointer;
+      flex-shrink: 0;
     }
     .filter-select:focus { outline: none; border-color: var(--text-accent); }
 
@@ -425,12 +420,14 @@
       color: var(--btn-primary-text);
       border: none;
       border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 6px 10px;
+      font-size: 11px;
       font-family: var(--font-ui);
       cursor: pointer;
       font-weight: 500;
       transition: opacity 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .btn-filter:hover { opacity: 0.85; }
 
@@ -439,13 +436,14 @@
       color: var(--btn-danger-text);
       border: none;
       border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 6px 10px;
+      font-size: 11px;
       font-family: var(--font-ui);
       cursor: pointer;
       font-weight: 500;
       transition: opacity 0.15s;
-      margin-left: auto;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .btn-bulk-delete:hover { opacity: 0.85; }
   </style>
