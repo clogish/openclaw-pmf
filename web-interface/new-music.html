@@ -387,9 +387,10 @@
       margin: 0 auto;
       padding: 20px 16px 0;
       display: flex;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      overflow-x: auto;
     }
 
     .filter-label {
@@ -398,6 +399,7 @@
       font-family: var(--font-ui);
       font-weight: 500;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .filter-select {
@@ -405,10 +407,11 @@
       border: 1px solid var(--border-input);
       border-radius: 6px;
       color: var(--text-primary);
-      padding: 6px 10px;
-      font-size: 12px;
+      padding: 6px 8px;
+      font-size: 11px;
       font-family: var(--font-ui);
       cursor: pointer;
+      flex-shrink: 0;
     }
     .filter-select:focus { outline: none; border-color: var(--text-accent); }
 
@@ -417,13 +420,14 @@
       color: var(--btn-primary-text);
       border: none;
       border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 6px 10px;
+      font-size: 11px;
       font-family: var(--font-ui);
       cursor: pointer;
       font-weight: 500;
       transition: opacity 0.15s;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .btn-filter:hover { opacity: 0.85; }
 
@@ -432,13 +436,14 @@
       color: var(--btn-danger-text);
       border: none;
       border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 6px 10px;
+      font-size: 11px;
       font-family: var(--font-ui);
       cursor: pointer;
       font-weight: 500;
       transition: opacity 0.15s;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .btn-bulk-delete:hover { opacity: 0.85; }
   </style>
