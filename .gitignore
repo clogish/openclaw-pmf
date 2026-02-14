@@ -17,6 +17,21 @@ npm-debug.log*
 Thumbs.db
 
 # IDE
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Logs
+*.log
+
+# Editor directories and files
 .vscode/
 .idea/
 *.swp
@@ -28,5 +43,6 @@ test-results/
 playwright-report/
 
 # Environment
+# Environment variables
 .env
 .env.local

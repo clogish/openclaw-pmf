@@ -1,6 +1,6 @@
 # music-feed
 
-Add music to Nick's discovery feed at http://localhost:3456/new-music.
+Add music to the Personal Music Feed at http://localhost:3456/new-music.
 
 ## Scripts
 
